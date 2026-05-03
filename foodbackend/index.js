@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const jwt = require('jsonwebtoken');
@@ -5,15 +6,15 @@ const bcrypt = require('bcryptjs'); // Password hash කරන්න
 const Question = require('./Question'); 
 const User = require('./User'); // User model එක
 
-// JWT Secret Key (මේක සාමාන්‍යයෙන් .env file එකක තමයි තියාගන්නේ)
-const JWT_SECRET = "my_super_secret_key_123";
+// JWT Secret Key (දැන් මේක .env file එකෙන් ගන්නේ)
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); 
 
-const dbURI = 'mongodb+srv://dilshanrathnayaka089_db_user:Test1234@cluster0.kycqdv7.mongodb.net/quiz_db?retryWrites=true&w=majority&appName=Cluster0';
+const dbURI = process.env.MONGO_URI;
 
 mongoose.connect(dbURI)
   .then(() => console.log('Database ekata connect una!'))
